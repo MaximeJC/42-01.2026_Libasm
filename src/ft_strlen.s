@@ -1,7 +1,3 @@
-; cmp rdi, 0	: Compare value in rdi with 0
-; inc rcx		: Increment value in rcx by 1
-; je label		: Jump to label if comparison was equal
-
 global ft_strlen			; Declare as global for external use
 
 ft_strlen:
@@ -15,3 +11,5 @@ ft_strlen:
 .end:
 	mov	 rax, rcx			; Move the length from rcx to rax (return value)
 	ret						; Return from function
+
+; TODO Still not working, error line 6: "impossible combination of address sizes"
