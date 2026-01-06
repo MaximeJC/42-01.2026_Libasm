@@ -10,7 +10,7 @@ We have to be careful when putting data in those registers, because they can be 
 	rbx
 	rsp is used to store the stack pointer.
 	rbp is used to store the base pointer.
-	rdi, rsi, rdx, rcx, r8, r9, ..., r15 are used respectively to pass arguments, vulgarly like function(rdi, rsi, rdx, rcx, r8, r9)
+	rdi, rsi, rdx, rcx, r8, r9 are used respectively to pass arguments, vulgarly like function(rdi, rsi, rdx, rcx, r8, r9). Other arguments when more than 6 are stored on the stack
 	rip
 
 	This may seem like an inconvenience, but it is actually very useful to manipulate the behavior of the program.
