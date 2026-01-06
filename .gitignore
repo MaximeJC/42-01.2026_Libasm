@@ -1,0 +1,7 @@
+# Ignore build artifacts and temporary files
+obj
+libasm.a
+libasm_checker
+
+# Ignore editor and IDE specific files
+.vscode/
