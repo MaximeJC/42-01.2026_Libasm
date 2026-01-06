@@ -1,3 +1,6 @@
+; size_t	ft_strlen(const char *s);
+;  rax							rdi
+
 global ft_strlen			; Declare as global for external use
 
 ft_strlen:
