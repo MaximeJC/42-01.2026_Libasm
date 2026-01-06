@@ -6,24 +6,27 @@ INCLUDES	= ./
 OBJ_DIR		= obj/
 SRC_DIR		= src/
 
-AR		= ar rcs
-CC		= gcc
-CFLAGS	= -g -Wall -Wextra -Werror -I
+AR			= ar rcs
+CC			= gcc
+CFLAGS		= -g -Wall -Wextra -Werror -I
+NASM		= nasm
+NASM_FLAGS	= -f elf64
 
 #! Sources
 
-SRC_FILES	=	ft_strlen ft_strcpy ft_strcmp ft_write ft_read ft_strdup
+SRC_FILES	=	ft_strlen #ft_strcpy ft_strcmp ft_write ft_read ft_strdup
 
-SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+SRCS = $(addprefix $(SRC_DIR), $(addsuffix .s, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 MAIN = main.c
 
 #! Make
 
-$(EXEC_NAME):
+$(EXEC_NAME): libasm
 	@echo "Compiling $(EXEC_NAME)"
-# TODO 	Compile main.c with libasm.a
+	@$(CC) $(CFLAGS) $(INCLUDES) -o $(EXEC_NAME) $(MAIN) $(LIB_NAME)
+	@echo "$(EXEC_NAME) compiled!"
 
 $(LIB_NAME): $(OBJS)
 	@echo "Compiling $(LIB_NAME) ..."
@@ -43,27 +46,25 @@ $(LIB_NAME): $(OBJS)
 #? fois les mkdir, au lieu d'une fois par fichier.
 
 #? OBJS = $(SRC_FILES:.c=.o)
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | obj_mkdir
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-# TODO 	Change for nasm compilation
+$(OBJ_DIR)%.o : $(SRC_DIR)%.s | obj_mkdir
+	@$(NASM) $(NASM_FLAGS) $< -o $@
 
 all: $(EXEC_NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@echo "Libft objects files cleaned!"
+	@echo "$(LIB_NAME) objects files cleaned!"
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo "Libft.a cleaned!"
+	@rm -f $(LIB_NAME) $(EXEC_NAME)
+	@echo "$(LIB_NAME) & $(EXEC_NAME) cleaned!"
 
 libasm: $(LIB_NAME)
-# TODO Libasm compilation with nasm
 
 obj_mkdir:
 	@mkdir -p $(OBJ_DIR)
 
 re: fclean all
-	@echo "Cleaned and rebuild Libft from zero!"
+	@echo "Cleaned and rebuild $(EXEC_NAME) from zero!"
 
 .PHONY: all clean fclean libasm obj_mkdir re
