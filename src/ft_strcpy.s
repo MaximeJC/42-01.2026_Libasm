@@ -10,9 +10,10 @@ ft_strcpy:
 	mov	BYTE [rdi + rcx], al	; al is a reg meant to store a single byte
 	inc	rcx						; Increment counter
 	cmp	BYTE [rsi + rcx], 0		; Check if end of string
-	je	.loop_end				; End loop if null char of src
-	jmp	.copy_loop				; Else, continue loop
-.loop_end:
+	jne	.copy_loop				; Jump if not equal, can replace the three following lines:
+								; 	 	je	.loop_end	- End loop if null char of src
+								; 		jmp	.copy_loop	- Else, continue loop
+								; 	.loop_end:
 	mov	rax, rdi				; Setting dest ptr as the return value
 	ret
 
