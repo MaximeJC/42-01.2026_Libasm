@@ -14,4 +14,6 @@ ssize_t	ft_write(int fd, const void *buf, size_t count);	// ssize_t write(int fd
 ssize_t	ft_read(int fd, void *buf, size_t count);			// ssize_t read(int fd, void buf[], size_t count);
 char	*ft_strdup(const char *s);							// char *strdup(const char *s);
 
+void test_ft_strlen(void);
+
 #endif // LIBASM_H
