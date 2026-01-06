@@ -12,4 +12,5 @@ ft_strlen:
 	mov	 rax, rcx			; Move the length from rcx to rax (return value)
 	ret						; Return from function
 
-
+; To avoid warnings from linker about stack section
+section .note.GNU-stack noalloc noexec
