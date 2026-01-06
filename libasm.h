@@ -16,5 +16,6 @@ char	*ft_strdup(const char *s);							// char *strdup(const char *s);
 
 void test_ft_strlen(void);
 void test_ft_strcpy(void);
+void test_ft_strcmp(void);
 
 #endif // LIBASM_H

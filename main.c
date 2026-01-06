@@ -13,6 +13,9 @@ int main(int argc, char **argv)
 	case 2:
 		test_ft_strcpy();
 		break;
+	case 3:
+		test_ft_strcmp();
+		break;
 	default:
 		printf("Please provide a test number (1-6) as an argument to run a specific test.\n");
 		printf("1: ft_strlen\n2: ft_strcpy\n3: ft_strcmp\n4: ft_write\n5: ft_read\n6: ft_strdup\n");
@@ -46,4 +49,19 @@ void test_ft_strcpy(void)
 	printf("Source: \"%s\" | strcpy Result: \"%s\" | ft_strcpy Result: \"%s\"\n", src1, strcpy(dest1, src1), ft_strcpy(dest1, src1));
 	printf("Source: \"%s\" | strcpy Result: \"%s\" | ft_strcpy Result: \"%s\"\n", src2, strcpy(dest2, src2), ft_strcpy(dest2, src2));
 	printf("Source: \"%s\" | strcpy Result: \"%s\" | ft_strcpy Result: \"%s\"\n", src3, strcpy(dest3, src3), ft_strcpy(dest3, src3));
+}
+
+void test_ft_strcmp(void)
+{
+	const char	*str1a = "Hello";
+	const char	*str1b = "Hello";
+	const char	*str2a = "Hello";
+	const char	*str2b = "World";
+	const char	*str3a = "abc";
+	const char	*str3b = "abcd";
+
+	printf("Testing ft_strcmp:\n");
+	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str1a, str1b, strcmp(str1a, str1b), ft_strcmp(str1a, str1b));
+	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str2a, str2b, strcmp(str2a, str2b), ft_strcmp(str2a, str2b));
+	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str3a, str3b, strcmp(str3a, str3b), ft_strcmp(str3a, str3b));
 }
