@@ -2,6 +2,7 @@
 obj
 libasm.a
 libasm_checker
+ft_write_test.txt
 
 # Ignore editor and IDE specific files
 .vscode/
