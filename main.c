@@ -80,30 +80,45 @@ void test_ft_write(void)
 	ssize_t ret_libc, ret_ft;
 
 	printf("Testing ft_write:\n");
+	errno = 0;
 	ret_libc = write(1, str, strlen(str));
-	printf(" (libc write returned: %zd)\n", ret_libc);
+	printf(" (libc write returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
 	ret_ft = ft_write(1, str, strlen(str));
-	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
+
 	printf("\nTesting ft_write with invalid fd:\n");
+	errno = 0;
 	ret_libc = write(-1, str, strlen(str));
 	printf(" (libc write returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
 	ret_ft = ft_write(-1, str, strlen(str));
 	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
+
+	printf("\nTesting ft_write with fd 0:\n");
+	errno = 0;
+	ret_libc = write(0, str, strlen(str));
+	printf(" (libc write returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
+	ret_ft = ft_write(0, str, strlen(str));
+	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
+
 	printf("\nTesting ft_write with zero count:\n");
+	errno = 0;
 	ret_libc = write(1, str, 0);
-	printf(" (libc write returned: %zd)\n", ret_libc);
+	printf(" (libc write returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
 	ret_ft = ft_write(1, str, 0);
-	printf(" (ft_write returned: %zd)\n", ret_ft);
-	printf("\nTesting ft_write with large count:\n");
-	ret_libc = write(1, str, 1000000);
-	printf(" (libc write returned: %zd)\n", ret_libc);
-	ret_ft = ft_write(1, str, 1000000);
-	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
+
 	printf("\nTesting ft_write with empty string:\n");
+	errno = 0;
 	ret_libc = write(1, "", 0);
-	printf(" (libc write returned: %zd)\n", ret_libc);
+	printf(" (libc write returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
 	ret_ft = ft_write(1, "", 0);
-	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
+
 	printf("\nTesting ft_write with file descriptor:\n");
 	int fd = open("ft_write_test.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
@@ -111,9 +126,12 @@ void test_ft_write(void)
 		perror("open");
 		return;
 	}
+	errno = 0;
 	ret_libc = write(fd, str, strlen(str));
-	printf(" (libc write to file returned: %zd)\n", ret_libc);
+	printf(" (libc write to file returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
 	ret_ft = ft_write(fd, str, strlen(str));
-	printf(" (ft_write to file returned: %zd)\n", ret_ft);
+	printf(" (ft_write to file returned: %zd, errno: %d)\n", ret_ft, errno);
 	close(fd);
+	errno = 0;
 }
