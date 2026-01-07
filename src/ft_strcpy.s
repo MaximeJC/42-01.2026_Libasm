@@ -17,5 +17,5 @@ ft_strcpy:
 	mov	rax, rdi				; Setting dest ptr as the return value
 	ret
 
-; To avoid warnings from linker about stack section
-section .note.GNU-stack noalloc noexec
+; To avoid warnings from linker about stack section - Not needed on LH 42's PC
+; section .note.GNU-stack noalloc noexec

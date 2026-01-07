@@ -18,5 +18,5 @@ ft_write:
 	mov		rax, -1						; Setting return rax value to -1
 	ret
 
-; To avoid warnings from linker about stack section
-section .note.GNU-stack noalloc noexec
+; To avoid warnings from linker about stack section - Not needed on LH 42's PC
+; section .note.GNU-stack noalloc noexec
