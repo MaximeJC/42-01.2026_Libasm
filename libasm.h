@@ -6,6 +6,7 @@
 #include <stdlib.h>		// For malloc, free
 #include <string.h>		// For strlen, strcmp, strcpy, strdup
 #include <fcntl.h>		// For file open flags
+#include <errno.h>		// For errno
 
 size_t	ft_strlen(const char *s);							// size_t strlen(const char *s);
 char	*ft_strcpy(char *dest, const char *src);			// char *strcpy(char *restrict dst, const char *restrict src);
@@ -17,5 +18,6 @@ char	*ft_strdup(const char *s);							// char *strdup(const char *s);
 void test_ft_strlen(void);
 void test_ft_strcpy(void);
 void test_ft_strcmp(void);
+void test_ft_write(void);
 
 #endif // LIBASM_H

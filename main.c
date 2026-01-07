@@ -16,6 +16,9 @@ int main(int argc, char **argv)
 	case 3:
 		test_ft_strcmp();
 		break;
+	case 4:
+		test_ft_write();
+		break;
 	default:
 		printf("Please provide a test number (1-6) as an argument to run a specific test.\n");
 		printf("1: ft_strlen\n2: ft_strcpy\n3: ft_strcmp\n4: ft_write\n5: ft_read\n6: ft_strdup\n");
@@ -69,4 +72,48 @@ void test_ft_strcmp(void)
 	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str3a, str3b, strcmp(str3a, str3b), ft_strcmp(str3a, str3b));
 	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str3b, str3a, strcmp(str3b, str3a), ft_strcmp(str3b, str3a));
 	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str4a, str4b, strcmp(str4a, str4b), ft_strcmp(str4a, str4b));
+}
+
+void test_ft_write(void)
+{
+	const char *str = "Hello, ft_write!\n";
+	ssize_t ret_libc, ret_ft;
+
+	printf("Testing ft_write:\n");
+	ret_libc = write(1, str, strlen(str));
+	printf(" (libc write returned: %zd)\n", ret_libc);
+	ret_ft = ft_write(1, str, strlen(str));
+	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf("\nTesting ft_write with invalid fd:\n");
+	ret_libc = write(-1, str, strlen(str));
+	printf(" (libc write returned: %zd, errno: %d)\n", ret_libc, errno);
+	ret_ft = ft_write(-1, str, strlen(str));
+	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
+	printf("\nTesting ft_write with zero count:\n");
+	ret_libc = write(1, str, 0);
+	printf(" (libc write returned: %zd)\n", ret_libc);
+	ret_ft = ft_write(1, str, 0);
+	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf("\nTesting ft_write with large count:\n");
+	ret_libc = write(1, str, 1000000);
+	printf(" (libc write returned: %zd)\n", ret_libc);
+	ret_ft = ft_write(1, str, 1000000);
+	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf("\nTesting ft_write with empty string:\n");
+	ret_libc = write(1, "", 0);
+	printf(" (libc write returned: %zd)\n", ret_libc);
+	ret_ft = ft_write(1, "", 0);
+	printf(" (ft_write returned: %zd)\n", ret_ft);
+	printf("\nTesting ft_write with file descriptor:\n");
+	int fd = open("ft_write_test.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		perror("open");
+		return;
+	}
+	ret_libc = write(fd, str, strlen(str));
+	printf(" (libc write to file returned: %zd)\n", ret_libc);
+	ret_ft = ft_write(fd, str, strlen(str));
+	printf(" (ft_write to file returned: %zd)\n", ret_ft);
+	close(fd);
 }
