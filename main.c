@@ -123,7 +123,7 @@ void test_ft_write(void)
 	printf(" (ft_write returned: %zd, errno: %d)\n", ret_ft, errno);
 
 	printf("\nTesting ft_write with file descriptor:\n");
-	int fd = open("ft_write_test.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	int fd = open("test_files/ft_write_test.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		perror("open");
