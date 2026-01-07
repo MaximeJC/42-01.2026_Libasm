@@ -63,5 +63,7 @@ void test_ft_strcmp(void)
 	printf("Testing ft_strcmp:\n");
 	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str1a, str1b, strcmp(str1a, str1b), ft_strcmp(str1a, str1b));
 	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str2a, str2b, strcmp(str2a, str2b), ft_strcmp(str2a, str2b));
+	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str2b, str2a, strcmp(str2b, str2a), ft_strcmp(str2b, str2a));
 	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str3a, str3b, strcmp(str3a, str3b), ft_strcmp(str3a, str3b));
+	printf("Comparing \"%s\" and \"%s\" | strcmp Result: %d | ft_strcmp Result: %d\n", str3b, str3a, strcmp(str3b, str3a), ft_strcmp(str3b, str3a));
 }
