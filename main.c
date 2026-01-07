@@ -19,6 +19,9 @@ int main(int argc, char **argv)
 	case 4:
 		test_ft_write();
 		break;
+	case 5:
+		test_ft_read();
+		break;
 	default:
 		printf("Please provide a test number (1-6) as an argument to run a specific test.\n");
 		printf("1: ft_strlen\n2: ft_strcpy\n3: ft_strcmp\n4: ft_write\n5: ft_read\n6: ft_strdup\n");
@@ -133,5 +136,57 @@ void test_ft_write(void)
 	ret_ft = ft_write(fd, str, strlen(str));
 	printf(" (ft_write to file returned: %zd, errno: %d)\n", ret_ft, errno);
 	close(fd);
+	errno = 0;
+}
+
+void test_ft_read(void)
+{
+	char buffer_libc[50];
+	char buffer_ft[50];
+	ssize_t ret_libc, ret_ft;
+	int fd;
+
+	printf("Testing ft_read:\n");
+
+	fd = open("test_files/ft_read_test1.txt", O_RDONLY);
+	// fd = open("test_files/ft_read_test2.txt", O_RDONLY);
+	// fd = open("test_files/ft_read_test3.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("open");
+		return;
+	}
+
+	ret_libc = read(fd, buffer_libc, sizeof(buffer_libc) - 1);
+	if (ret_libc < 0)
+	{
+		perror("read");
+		close(fd);
+		return;
+	}
+	buffer_libc[ret_libc] = '\0';
+	printf(" (libc read returned: %zd, buffer: \"%s\")\n", ret_libc, buffer_libc);
+
+	lseek(fd, 0, SEEK_SET); // Reset file offset
+
+	ret_ft = ft_read(fd, buffer_ft, sizeof(buffer_ft) - 1);
+	if (ret_ft < 0)
+	{
+		perror("ft_read");
+		close(fd);
+		return;
+	}
+	buffer_ft[ret_ft] = '\0';
+	printf(" (ft_read returned: %zd, buffer: \"%s\")\n", ret_ft, buffer_ft);
+
+	close(fd);
+
+	printf("\nTesting ft_read with invalid fd:\n");
+	errno = 0;
+	ret_libc = read(-1, buffer_libc, sizeof(buffer_libc) - 1);
+	printf(" (libc read returned: %zd, errno: %d)\n", ret_libc, errno);
+	errno = 0;
+	ret_ft = ft_read(-1, buffer_ft, sizeof(buffer_ft) - 1);
+	printf(" (ft_read returned: %zd, errno: %d)\n", ret_ft, errno);
 	errno = 0;
 }

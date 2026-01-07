@@ -14,7 +14,7 @@ NASM_FLAGS	= -f elf64
 
 #! Sources
 
-SRC_FILES	=	ft_strlen ft_strcpy ft_strcmp ft_write #ft_read ft_strdup
+SRC_FILES	=	ft_strlen ft_strcpy ft_strcmp ft_write ft_read #ft_strdup
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .s, $(SRC_FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
