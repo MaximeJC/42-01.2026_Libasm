@@ -147,42 +147,131 @@ void test_ft_read(void)
 	char buffer_libc[50];
 	char buffer_ft[50];
 	ssize_t ret_libc, ret_ft;
-	int fd;
-
-	printf("Testing ft_read:\n");
-
-	fd = open("test_files/ft_read_test1.txt", O_RDONLY);
-	// fd = open("test_files/ft_read_test2.txt", O_RDONLY);
-	// fd = open("test_files/ft_read_test3.txt", O_RDONLY);
-	if (fd < 0)
+	int fd1 = open("test_files/ft_read_test1.txt", O_RDONLY);
+	if (fd1 < 0)
 	{
 		perror("open");
 		return;
 	}
+	int fd2 = open("test_files/ft_read_test2.txt", O_RDONLY);
+	if (fd2 < 0)
+	{
+		perror("open");
+		close(fd1);
+		return;
+	}
+	int fd3 = open("test_files/ft_read_test3.txt", O_RDONLY);
+	if (fd3 < 0)
+	{
+		perror("open");
+		close(fd1);
+		close(fd2);
+		return;
+	}
 
-	ret_libc = read(fd, buffer_libc, sizeof(buffer_libc) - 1);
+	printf("Testing ft_read with fd1 - file size < buffer size:\n");
+
+	ret_libc = read(fd1, buffer_libc, sizeof(buffer_libc) - 1);
 	if (ret_libc < 0)
 	{
 		perror("read");
-		close(fd);
+		close(fd1);
+		close(fd2);
+		close(fd3);
 		return;
 	}
 	buffer_libc[ret_libc] = '\0';
 	printf(" (libc read returned: %zd, buffer: \"%s\")\n", ret_libc, buffer_libc);
 
-	lseek(fd, 0, SEEK_SET); // Reset file offset
+	lseek(fd1, 0, SEEK_SET); // Reset file offset
 
-	ret_ft = ft_read(fd, buffer_ft, sizeof(buffer_ft) - 1);
+	ret_ft = ft_read(fd1, buffer_ft, sizeof(buffer_ft) - 1);
 	if (ret_ft < 0)
 	{
 		perror("ft_read");
-		close(fd);
+		close(fd1);
+		close(fd2);
+		close(fd3);
+		return;
+	}
+	buffer_ft[ret_ft] = '\0';
+	printf(" (ft_read returned: %zd, buffer: \"%s\")\n\n", ret_ft, buffer_ft);
+
+	close(fd1);
+
+	printf("Testing ft_read with fd2 - file size > buffer size:\n");
+
+	ret_libc = read(fd2, buffer_libc, sizeof(buffer_libc) - 1);
+	if (ret_libc < 0)
+	{
+		perror("read");
+		close(fd2);
+		close(fd3);
+		return;
+	}
+	buffer_libc[ret_libc] = '\0';
+	printf(" (libc read returned: %zd, buffer: \"%s\")\n", ret_libc, buffer_libc);
+	ret_libc = read(fd2, buffer_libc, sizeof(buffer_libc) - 1);
+	if (ret_libc < 0)
+	{
+		perror("read");
+		close(fd2);
+		close(fd3);
+		return;
+	}
+	buffer_libc[ret_libc] = '\0';
+	printf(" (libc read returned: %zd, buffer: \"%s\")\n", ret_libc, buffer_libc);
+
+	lseek(fd2, 0, SEEK_SET);
+
+	ret_ft = ft_read(fd2, buffer_ft, sizeof(buffer_ft) - 1);
+	if (ret_ft < 0)
+	{
+		perror("ft_read");
+		close(fd2);
+		close(fd3);
+		return;
+	}
+	buffer_ft[ret_ft] = '\0';
+	printf(" (ft_read returned: %zd, buffer: \"%s\")\n\n", ret_ft, buffer_ft);
+	ret_ft = ft_read(fd2, buffer_ft, sizeof(buffer_ft) - 1);
+	if (ret_ft < 0)
+	{
+		perror("ft_read");
+		close(fd2);
+		close(fd3);
+		return;
+	}
+	buffer_ft[ret_ft] = '\0';
+	printf(" (ft_read returned: %zd, buffer: \"%s\")\n\n", ret_ft, buffer_ft);
+
+	close(fd2);
+
+	printf("Testing ft_read with fd3 - empty file:\n");
+
+	ret_libc = read(fd3, buffer_libc, sizeof(buffer_libc) - 1);
+	if (ret_libc < 0)
+	{
+		perror("read");
+		close(fd3);
+		return;
+	}
+	buffer_libc[ret_libc] = '\0';
+	printf(" (libc read returned: %zd, buffer: \"%s\")\n", ret_libc, buffer_libc);
+
+	lseek(fd3, 0, SEEK_SET);
+
+	ret_ft = ft_read(fd3, buffer_ft, sizeof(buffer_ft) - 1);
+	if (ret_ft < 0)
+	{
+		perror("ft_read");
+		close(fd3);
 		return;
 	}
 	buffer_ft[ret_ft] = '\0';
 	printf(" (ft_read returned: %zd, buffer: \"%s\")\n", ret_ft, buffer_ft);
 
-	close(fd);
+	close(fd3);
 
 	printf("\nTesting ft_read with invalid fd:\n");
 	errno = 0;
