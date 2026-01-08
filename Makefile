@@ -23,7 +23,7 @@ MAIN = main.c
 
 #! Make
 
-$(EXEC_NAME): libasm
+$(EXEC_NAME): $(MAIN) $(LIB_NAME)
 	@echo "Compiling $(EXEC_NAME)"
 	@$(CC) $(CFLAGS) $(INCLUDES) -o $(EXEC_NAME) $(MAIN) $(LIB_NAME)
 	@echo "$(EXEC_NAME) compiled!"
