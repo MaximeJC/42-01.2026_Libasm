@@ -22,6 +22,9 @@ int main(int argc, char **argv)
 	case 5:
 		test_ft_read();
 		break;
+	case 6:
+		test_ft_strdup();
+		break;
 	default:
 		printf("Please provide a test number (1-6) as an argument to run a specific test.\n");
 		printf("1: ft_strlen\n2: ft_strcpy\n3: ft_strcmp\n4: ft_write\n5: ft_read\n6: ft_strdup\n");
@@ -190,3 +193,36 @@ void test_ft_read(void)
 	printf(" (ft_read returned: %zd, errno: %d)\n", ret_ft, errno);
 	errno = 0;
 }
+
+void test_ft_strdup(void)
+{
+	const char *str1 = "Hello, World!";
+	const char *str2 = "";
+	const char *str3 = "This is a longer string to test the ft_strdup function.";
+
+	char *dup1_libc = strdup(str1);
+	char *dup1_ft = ft_strdup(str1);
+	printf("Testing ft_strdup:\n");
+	// printf("Original: \"%s\" | strdup Result: \"%s\" | ft_strdup Result: \"%s\"\n", str1, dup1_libc, dup1_ft);
+	printf("Original: \"%s\" | ", str1);
+	printf("strdup Result: \"%s\" | ", dup1_libc);
+	printf("ft_strdup Result: \"%s\"\n", dup1_ft);
+	free(dup1_libc);
+	free(dup1_ft);
+
+	char *dup2_libc = strdup(str2);
+	char *dup2_ft = ft_strdup(str2);
+	printf("Original: \"%s\" | strdup Result: \"%s\" | ft_strdup Result: \"%s\"\n", str2, dup2_libc, dup2_ft);
+	free(dup2_libc);
+	free(dup2_ft);
+
+	char *dup3_libc = strdup(str3);
+	char *dup3_ft = ft_strdup(str3);
+	// printf("Original: \"%s\" | strdup Result: \"%s\" | ft_strdup Result: \"%s\"\n", str3, dup3_libc, dup3_ft);
+	printf("Original: \"%s\" | ", str3);
+	printf("strdup Result: \"%s\" | ", dup3_libc);
+	printf("ft_strdup Result: \"%s\"\n", dup3_ft);
+	free(dup3_libc);
+	free(dup3_ft);
+}
+
