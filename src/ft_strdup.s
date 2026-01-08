@@ -7,14 +7,12 @@ extern	ft_strlen
 extern	ft_strcpy
 
 ft_strdup:
-	mov		rax, 0
-	mov		rsi, 0
-	call	ft_strlen
-	push	rdi
-	inc		rax
-	mov		rdi, rax
-	call	malloc wrt ..plt
-	pop		rsi
-	mov		rdi, rax
-	call	ft_strcpy
-	ret
+	call	ft_strlen			; First, call strlen, getting len of rdi into rax
+	push	rdi					; Store rdi in stack to be able to use it for malloc call
+	inc		rax					; Add space for null byte
+	mov		rdi, rax			; Set strlen to rdi
+	call	malloc wrt ..plt	; Malloc with rdi size, getting void ptr into rax
+	pop		rsi					; Get back *s into rsi
+	mov		rdi, rax			; Move malloc'ed void ptr to rdi
+	call	ft_strcpy			; Use strcpy
+	ret							; Return new string (rax from strcpy)
