@@ -23,5 +23,5 @@ Pour information, certains exercices pourraient être incorrects. Quelques bugs 
 - `ft_strdup` &mdash; Duplicate a string, having to allocate some memory for that.
 
 
-_Post CC Project - Completed in January 2025_
+_Post CC Project - Completed in January 2025_  
 _Code by me_
