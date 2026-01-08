@@ -57,6 +57,7 @@ clean:
 
 fclean: clean
 	@rm -f $(LIB_NAME) $(EXEC_NAME)
+	@rm -f ./test_files/ft_write_test.txt
 	@echo "$(LIB_NAME) & $(EXEC_NAME) cleaned!"
 
 libasm: $(LIB_NAME)
